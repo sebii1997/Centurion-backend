@@ -1,0 +1,19 @@
+[
+    {
+        "title": "Monitor",
+        "description": "Gamer por naturaleza",
+        "price": 230,
+        "thumbnail": "Sin imagen",
+        "code": "abc123",
+        "stock": "sin stock"
+    },
+    {
+        "id": 0,
+        "title": "Monitor",
+        "description": "Gamer por naturaleza",
+        "price": 230,
+        "thumbnail": "Sin imagen",
+        "code": "abc123",
+        "stock": "sin stock"
+    }
+]

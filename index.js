@@ -1,27 +1,50 @@
+const fs = require("fs");
 class productManager {
-    products = [];
+    #path = "./Productos.json"    
 
-    constructor() {}
-
-    getProducts() {
+    /* getProducts() {
         return this.products;
-    }
+    } */
 
-    addProduct(title, description, price, thumbnail, code, stock) {
+    async addProduct(title, description, price, thumbnail, code, stock) {
         const product = {
-            id: this.products.length,
+            id: 0,            
             title,
             description,
             price,
             thumbnail,
             code,
             stock,
-        }
+        };
 
-        this.products.push(product);
+        const products = await this.consultarProducto();
+
+        const updatedProducts = [...products, product];
+
+        await fs.promises.writeFile(this.#path, JSON.stringify(updatedProducts));
+        
     };    
+
+    async consultarProducto() {
+        try{
+            const products = await fs.promises.readFile(this.#path, "utf-8");
+
+            return JSON.parse(products);
+        } catch (e){
+            return [];
+        }
+    }
 }
 
-const manager = new productManager();
-manager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25)
-console.log(manager.getProducts());
+
+async function main(){
+    const manager = new productManager();
+
+    console.log(await manager.consultarProducto());
+
+    await manager.addProduct("Monitor", "Gamer por naturaleza", 230, "Sin imagen", "abc123", "sin stock");
+
+    console.log(await manager.consultarProducto());
+}
+
+main();
